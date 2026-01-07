@@ -2,10 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const routes = require("./routes");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  })
+);
+
 app.use(express.json());
 
 // MongoDB connection
@@ -26,7 +35,6 @@ app.get("/health", (req, res) => {
 });
 
 // Server start
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, '0.0.0.0', () => {
+  console.log("Server running on port 3000");
 });
